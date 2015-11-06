@@ -2,7 +2,7 @@
 
 ![demo.gif](http://images.cnitblog.com/blog/607542/201409/231942047644298.gif)
 
-> AFNetworking的封装
+> 特点
 
 * 隔离AFNetworking使用细节
 * 较好的可维护性
