@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "V_3_X_NetworkingIndicator.h"
+#import "V_3_X_NetworkingReachability.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +18,10 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+
+    [V_3_X_NetworkingIndicator showNetworkActivityIndicator:YES];
+    [V_3_X_NetworkingReachability startMonitoring];
+    
     return YES;
 }
 
