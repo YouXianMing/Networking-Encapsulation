@@ -32,6 +32,9 @@
         
         // AFNetworking 2.x 相关初始化
         self.manager = [AFHTTPRequestOperationManager manager];
+        
+        // 设置请求头部
+        self.HTTPHeaderFieldsWithValues = [NSMutableDictionary dictionary];
     }
     
     return self;

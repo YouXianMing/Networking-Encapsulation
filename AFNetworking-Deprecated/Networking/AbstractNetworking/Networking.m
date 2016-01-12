@@ -32,7 +32,8 @@
 
 - (void)setup {
 
-    self.manager = [AFHTTPRequestOperationManager manager];
+    self.manager                    = [AFHTTPRequestOperationManager manager];
+    self.HTTPHeaderFieldsWithValues = [NSMutableDictionary dictionary];
 }
 
 - (void)cancelRequest {
