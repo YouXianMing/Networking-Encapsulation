@@ -66,6 +66,7 @@
     }
     
     self.manager.responseSerializer.acceptableContentTypes = [self.manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
+    self.manager.responseSerializer.acceptableContentTypes = [self.manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/plain"];
     
     // 设置请求头部信息
     if (self.HTTPHeaderFieldsWithValues) {
