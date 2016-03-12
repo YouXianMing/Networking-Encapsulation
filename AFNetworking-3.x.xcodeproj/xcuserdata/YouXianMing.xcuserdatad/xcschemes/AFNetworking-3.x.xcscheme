@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0710"
+   LastUpgradeVersion = "0720"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1036CB021BECDDF0002B871D"
+               BlueprintIdentifier = "109604B01C93962700CCB3AD"
                BuildableName = "AFNetworking-3.x.app"
                BlueprintName = "AFNetworking-3.x"
                ReferencedContainer = "container:AFNetworking-3.x.xcodeproj">
@@ -32,7 +32,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1036CB021BECDDF0002B871D"
+            BlueprintIdentifier = "109604B01C93962700CCB3AD"
             BuildableName = "AFNetworking-3.x.app"
             BlueprintName = "AFNetworking-3.x"
             ReferencedContainer = "container:AFNetworking-3.x.xcodeproj">
@@ -55,7 +55,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1036CB021BECDDF0002B871D"
+            BlueprintIdentifier = "109604B01C93962700CCB3AD"
             BuildableName = "AFNetworking-3.x.app"
             BlueprintName = "AFNetworking-3.x"
             ReferencedContainer = "container:AFNetworking-3.x.xcodeproj">
@@ -74,7 +74,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1036CB021BECDDF0002B871D"
+            BlueprintIdentifier = "109604B01C93962700CCB3AD"
             BuildableName = "AFNetworking-3.x.app"
             BlueprintName = "AFNetworking-3.x"
             ReferencedContainer = "container:AFNetworking-3.x.xcodeproj">

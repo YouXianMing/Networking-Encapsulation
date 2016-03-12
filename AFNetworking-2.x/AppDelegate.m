@@ -2,13 +2,11 @@
 //  AppDelegate.m
 //  AFNetworking-2.x
 //
-//  Created by YouXianMing on 15/11/6.
-//  Copyright © 2015年 YouXianMing. All rights reserved.
+//  Created by YouXianMing on 16/3/12.
+//  Copyright © 2016年 YouXianMing. All rights reserved.
 //
 
 #import "AppDelegate.h"
-#import "V_2_X_NetworkingIndicator.h"
-#import "V_2_X_NetworkingReachability.h"
 
 @interface AppDelegate ()
 
@@ -18,10 +16,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
-    [V_2_X_NetworkingIndicator showNetworkActivityIndicator:YES];
-    [V_2_X_NetworkingReachability startMonitoring];
-    
+    // Override point for customization after application launch.
     return YES;
 }
 

@@ -1,15 +1,13 @@
 //
-//  ViewController.h
+//  NetworkingReachability.h
 //  AFNetworking-3.x
 //
 //  Created by YouXianMing on 16/3/12.
 //  Copyright © 2016年 YouXianMing. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "AbsNetworkingReachability.h"
 
-@interface ViewController : UIViewController
-
+@interface NetworkingReachability : AbsNetworkingReachability
 
 @end
-
