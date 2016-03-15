@@ -38,7 +38,7 @@ typedef enum : NSUInteger {
     
     // 初始化网络请求
     self.networking = [Networking getMethodNetworkingWithUrlString:@"http://api.openweathermap.org/data/2.5/forecast/daily"
-                                                 requestDictionary:@{@"lat"   :  @"39.907501",
+                                                  requestParameter:@{@"lat"   :  @"39.907501",
                                                                      @"lon"   :  @"116.397232",
                                                                      @"APPID" :  @"8781e4ef1c73ff20a180d3d7a42a8c04"}
                                                    requestBodyType:[HttpBodyType type]

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		102A103E1C97E8BD00BF3F1B /* AbsRequestParameterSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 102A103D1C97E8BD00BF3F1B /* AbsRequestParameterSerializer.m */; };
 		109604B61C93962700CCB3AD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 109604B51C93962700CCB3AD /* main.m */; };
 		109604B91C93962700CCB3AD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 109604B81C93962700CCB3AD /* AppDelegate.m */; };
 		109604BC1C93962700CCB3AD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 109604BB1C93962700CCB3AD /* ViewController.m */; };
@@ -17,7 +18,6 @@
 		109604D41C93986900CCB3AD /* RequestMethodType.m in Sources */ = {isa = PBXBuildFile; fileRef = 109604D31C93986900CCB3AD /* RequestMethodType.m */; };
 		109604D71C9398A900CCB3AD /* RequestBodyType.m in Sources */ = {isa = PBXBuildFile; fileRef = 109604D61C9398A900CCB3AD /* RequestBodyType.m */; };
 		109604DA1C9398F900CCB3AD /* ResponseDataType.m in Sources */ = {isa = PBXBuildFile; fileRef = 109604D91C9398F900CCB3AD /* ResponseDataType.m */; };
-		109604DF1C939AFE00CCB3AD /* AbsRequestDictionarySerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 109604DE1C939AFE00CCB3AD /* AbsRequestDictionarySerializer.m */; };
 		109604E21C939B4F00CCB3AD /* AbsResponseDataSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 109604E11C939B4F00CCB3AD /* AbsResponseDataSerializer.m */; };
 		109604E51C939E6B00CCB3AD /* AbsNetworkingIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 109604E41C939E6B00CCB3AD /* AbsNetworkingIndicator.m */; };
 		109604E81C939E9500CCB3AD /* AbsNetworkingReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 109604E71C939E9500CCB3AD /* AbsNetworkingReachability.m */; };
@@ -44,6 +44,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		102A103C1C97E8BD00BF3F1B /* AbsRequestParameterSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbsRequestParameterSerializer.h; sourceTree = "<group>"; };
+		102A103D1C97E8BD00BF3F1B /* AbsRequestParameterSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbsRequestParameterSerializer.m; sourceTree = "<group>"; };
 		109604B11C93962700CCB3AD /* AFNetworking-3.x.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AFNetworking-3.x.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		109604B51C93962700CCB3AD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		109604B71C93962700CCB3AD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -62,8 +64,6 @@
 		109604D61C9398A900CCB3AD /* RequestBodyType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestBodyType.m; sourceTree = "<group>"; };
 		109604D81C9398F900CCB3AD /* ResponseDataType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResponseDataType.h; sourceTree = "<group>"; };
 		109604D91C9398F900CCB3AD /* ResponseDataType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResponseDataType.m; sourceTree = "<group>"; };
-		109604DD1C939AFE00CCB3AD /* AbsRequestDictionarySerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbsRequestDictionarySerializer.h; sourceTree = "<group>"; };
-		109604DE1C939AFE00CCB3AD /* AbsRequestDictionarySerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbsRequestDictionarySerializer.m; sourceTree = "<group>"; };
 		109604E01C939B4F00CCB3AD /* AbsResponseDataSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbsResponseDataSerializer.h; sourceTree = "<group>"; };
 		109604E11C939B4F00CCB3AD /* AbsResponseDataSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbsResponseDataSerializer.m; sourceTree = "<group>"; };
 		109604E31C939E6B00CCB3AD /* AbsNetworkingIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbsNetworkingIndicator.h; sourceTree = "<group>"; };
@@ -181,8 +181,8 @@
 				109604D61C9398A900CCB3AD /* RequestBodyType.m */,
 				109604D81C9398F900CCB3AD /* ResponseDataType.h */,
 				109604D91C9398F900CCB3AD /* ResponseDataType.m */,
-				109604DD1C939AFE00CCB3AD /* AbsRequestDictionarySerializer.h */,
-				109604DE1C939AFE00CCB3AD /* AbsRequestDictionarySerializer.m */,
+				102A103C1C97E8BD00BF3F1B /* AbsRequestParameterSerializer.h */,
+				102A103D1C97E8BD00BF3F1B /* AbsRequestParameterSerializer.m */,
 				109604E01C939B4F00CCB3AD /* AbsResponseDataSerializer.h */,
 				109604E11C939B4F00CCB3AD /* AbsResponseDataSerializer.m */,
 				109604E31C939E6B00CCB3AD /* AbsNetworkingIndicator.h */,
@@ -360,9 +360,9 @@
 				109604B61C93962700CCB3AD /* main.m in Sources */,
 				109604E81C939E9500CCB3AD /* AbsNetworkingReachability.m in Sources */,
 				109605281C93AD2A00CCB3AD /* WeatherInfoModel.m in Sources */,
-				109604DF1C939AFE00CCB3AD /* AbsRequestDictionarySerializer.m in Sources */,
 				109605141C939F0800CCB3AD /* AFImageDownloader.m in Sources */,
 				1096051F1C939F3700CCB3AD /* Networking.m in Sources */,
+				102A103E1C97E8BD00BF3F1B /* AbsRequestParameterSerializer.m in Sources */,
 				109605191C939F0800CCB3AD /* UIProgressView+AFNetworking.m in Sources */,
 				109605251C93AC5100CCB3AD /* NetworkingReachability.m in Sources */,
 				109604DA1C9398F900CCB3AD /* ResponseDataType.m in Sources */,
@@ -520,6 +520,7 @@
 				109604CA1C93962700CCB3AD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
