@@ -13,7 +13,7 @@
 @implementation RequestMethodType
 
 + (instancetype)type {
-
+    
     RequestMethodType *method = [[[self class] alloc] init];
     return method;
 }
@@ -25,5 +25,9 @@
 @end
 
 @implementation PostMethod
+
+@end
+
+@implementation UploadMethod
 
 @end
