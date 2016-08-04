@@ -13,7 +13,7 @@
 /**
  *  用于测试网络是否可以连接的基准URL地址
  */
-static NSString *reachabeBaseURL = @"http://baidu.com/";
+static NSString *reachabeBaseURL = @"https://baidu.com/";
 static BOOL     _canSendMessage  = YES;
 
 @implementation NetworkingReachability
@@ -22,7 +22,7 @@ static BOOL     _canSendMessage  = YES;
     
     if (self == [NetworkingReachability class]) {
         
-        [AFNetworkReachabilityManager managerForAddress:(__bridge const void * _Nonnull)(reachabeBaseURL)];
+//        [AFNetworkReachabilityManager managerForAddress:(__bridge const void * _Nonnull)(reachabeBaseURL)];
         
         [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
             

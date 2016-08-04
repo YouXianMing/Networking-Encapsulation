@@ -1,5 +1,5 @@
 // AFURLSessionManager.m
-// Copyright (c) 2011–2015 Alamofire Software Foundation (http://alamofire.org/)
+// Copyright (c) 2011–2016 Alamofire Software Foundation ( http://alamofire.org/ )
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -84,8 +84,6 @@ NSString * const AFNetworkingTaskDidCompleteAssetPathKey = @"com.alamofire.netwo
 static NSString * const AFURLSessionManagerLockName = @"com.alamofire.networking.session.manager.lock";
 
 static NSUInteger const AFMaximumNumberOfAttemptsToRecreateBackgroundSessionUploadTask = 3;
-
-static void * AFTaskStateChangedContext = &AFTaskStateChangedContext;
 
 typedef void (^AFURLSessionDidBecomeInvalidBlock)(NSURLSession *session, NSError *error);
 typedef NSURLSessionAuthChallengeDisposition (^AFURLSessionDidReceiveAuthenticationChallengeBlock)(NSURLSession *session, NSURLAuthenticationChallenge *challenge, NSURLCredential * __autoreleasing *credential);
@@ -184,24 +182,6 @@ typedef void (^AFURLSessionTaskCompletionHandler)(NSURLResponse *response, id re
         }];
     }
 
-    [task addObserver:self
-           forKeyPath:NSStringFromSelector(@selector(countOfBytesReceived))
-              options:NSKeyValueObservingOptionNew
-              context:NULL];
-    [task addObserver:self
-           forKeyPath:NSStringFromSelector(@selector(countOfBytesExpectedToReceive))
-              options:NSKeyValueObservingOptionNew
-              context:NULL];
-
-    [task addObserver:self
-           forKeyPath:NSStringFromSelector(@selector(countOfBytesSent))
-              options:NSKeyValueObservingOptionNew
-              context:NULL];
-    [task addObserver:self
-           forKeyPath:NSStringFromSelector(@selector(countOfBytesExpectedToSend))
-              options:NSKeyValueObservingOptionNew
-              context:NULL];
-
     [self.downloadProgress addObserver:self
                             forKeyPath:NSStringFromSelector(@selector(fractionCompleted))
                                options:NSKeyValueObservingOptionNew
@@ -213,27 +193,12 @@ typedef void (^AFURLSessionTaskCompletionHandler)(NSURLResponse *response, id re
 }
 
 - (void)cleanUpProgressForTask:(NSURLSessionTask *)task {
-    [task removeObserver:self forKeyPath:NSStringFromSelector(@selector(countOfBytesReceived))];
-    [task removeObserver:self forKeyPath:NSStringFromSelector(@selector(countOfBytesExpectedToReceive))];
-    [task removeObserver:self forKeyPath:NSStringFromSelector(@selector(countOfBytesSent))];
-    [task removeObserver:self forKeyPath:NSStringFromSelector(@selector(countOfBytesExpectedToSend))];
     [self.downloadProgress removeObserver:self forKeyPath:NSStringFromSelector(@selector(fractionCompleted))];
     [self.uploadProgress removeObserver:self forKeyPath:NSStringFromSelector(@selector(fractionCompleted))];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
-    if ([object isKindOfClass:[NSURLSessionTask class]]) {
-        if ([keyPath isEqualToString:NSStringFromSelector(@selector(countOfBytesReceived))]) {
-            self.downloadProgress.completedUnitCount = [change[@"new"] longLongValue];
-        } else if ([keyPath isEqualToString:NSStringFromSelector(@selector(countOfBytesExpectedToReceive))]) {
-            self.downloadProgress.totalUnitCount = [change[@"new"] longLongValue];
-        } else if ([keyPath isEqualToString:NSStringFromSelector(@selector(countOfBytesSent))]) {
-            self.uploadProgress.completedUnitCount = [change[@"new"] longLongValue];
-        } else if ([keyPath isEqualToString:NSStringFromSelector(@selector(countOfBytesExpectedToSend))]) {
-            self.uploadProgress.totalUnitCount = [change[@"new"] longLongValue];
-        }
-    }
-    else if ([object isEqual:self.downloadProgress]) {
+   if ([object isEqual:self.downloadProgress]) {
         if (self.downloadProgressBlock) {
             self.downloadProgressBlock(object);
         }
@@ -251,8 +216,6 @@ typedef void (^AFURLSessionTaskCompletionHandler)(NSURLResponse *response, id re
               task:(NSURLSessionTask *)task
 didCompleteWithError:(NSError *)error
 {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wgnu"
     __strong AFURLSessionManager *manager = self.manager;
 
     __block id responseObject = nil;
@@ -314,19 +277,47 @@ didCompleteWithError:(NSError *)error
             });
         });
     }
-#pragma clang diagnostic pop
 }
 
-#pragma mark - NSURLSessionDataTaskDelegate
+#pragma mark - NSURLSessionDataDelegate
 
 - (void)URLSession:(__unused NSURLSession *)session
           dataTask:(__unused NSURLSessionDataTask *)dataTask
     didReceiveData:(NSData *)data
 {
+    self.downloadProgress.completedUnitCount = dataTask.countOfBytesReceived;
+    self.downloadProgress.totalUnitCount = dataTask.countOfBytesExpectedToReceive;
+
     [self.mutableData appendData:data];
 }
 
-#pragma mark - NSURLSessionDownloadTaskDelegate
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
+   didSendBodyData:(int64_t)bytesSent
+    totalBytesSent:(int64_t)totalBytesSent
+totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend{
+    
+    self.uploadProgress.completedUnitCount = task.countOfBytesSent;
+    self.uploadProgress.totalUnitCount = task.countOfBytesExpectedToSend;
+}
+
+#pragma mark - NSURLSessionDownloadDelegate
+
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
+      didWriteData:(int64_t)bytesWritten
+ totalBytesWritten:(int64_t)totalBytesWritten
+totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite{
+    
+    self.downloadProgress.totalUnitCount = totalBytesExpectedToWrite;
+    self.downloadProgress.completedUnitCount = totalBytesWritten;
+}
+
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
+ didResumeAtOffset:(int64_t)fileOffset
+expectedTotalBytes:(int64_t)expectedTotalBytes{
+    
+    self.downloadProgress.totalUnitCount = expectedTotalBytes;
+    self.downloadProgress.completedUnitCount = fileOffset;
+}
 
 - (void)URLSession:(NSURLSession *)session
       downloadTask:(NSURLSessionDownloadTask *)downloadTask
@@ -783,6 +774,7 @@ static NSString * const AFNSURLSessionTaskDidSuspendNotification = @"com.alamofi
         uploadTask = [self.session uploadTaskWithRequest:request fromFile:fileURL];
     });
 
+    // uploadTask may be nil on iOS7 because uploadTaskWithRequest:fromFile: may return nil despite being documented as nonnull (https://devforums.apple.com/message/926113#926113)
     if (!uploadTask && self.attemptsToRecreateUploadTasksForBackgroundSessions && self.session.configuration.identifier) {
         for (NSUInteger attempts = 0; !uploadTask && attempts < AFMaximumNumberOfAttemptsToRecreateBackgroundSessionUploadTask; attempts++) {
             uploadTask = [self.session uploadTaskWithRequest:request fromFile:fileURL];
@@ -983,7 +975,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                     disposition = NSURLSessionAuthChallengePerformDefaultHandling;
                 }
             } else {
-                disposition = NSURLSessionAuthChallengeRejectProtectionSpace;
+                disposition = NSURLSessionAuthChallengeCancelAuthenticationChallenge;
             }
         } else {
             disposition = NSURLSessionAuthChallengePerformDefaultHandling;
@@ -1030,7 +1022,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                 disposition = NSURLSessionAuthChallengeUseCredential;
                 credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
             } else {
-                disposition = NSURLSessionAuthChallengeRejectProtectionSpace;
+                disposition = NSURLSessionAuthChallengeCancelAuthenticationChallenge;
             }
         } else {
             disposition = NSURLSessionAuthChallengePerformDefaultHandling;
@@ -1072,6 +1064,12 @@ totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend
         if(contentLength) {
             totalUnitCount = (int64_t) [contentLength longLongValue];
         }
+    }
+    
+    AFURLSessionManagerTaskDelegate *delegate = [self delegateForTask:task];
+    
+    if (delegate) {
+        [delegate URLSession:session task:task didSendBodyData:bytesSent totalBytesSent:totalBytesSent totalBytesExpectedToSend:totalBytesExpectedToSend];
     }
 
     if (self.taskDidSendBodyData) {
@@ -1199,6 +1197,13 @@ didFinishDownloadingToURL:(NSURL *)location
  totalBytesWritten:(int64_t)totalBytesWritten
 totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
 {
+    
+    AFURLSessionManagerTaskDelegate *delegate = [self delegateForTask:downloadTask];
+    
+    if (delegate) {
+        [delegate URLSession:session downloadTask:downloadTask didWriteData:bytesWritten totalBytesWritten:totalBytesWritten totalBytesExpectedToWrite:totalBytesExpectedToWrite];
+    }
+
     if (self.downloadTaskDidWriteData) {
         self.downloadTaskDidWriteData(session, downloadTask, bytesWritten, totalBytesWritten, totalBytesExpectedToWrite);
     }
@@ -1209,6 +1214,13 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
  didResumeAtOffset:(int64_t)fileOffset
 expectedTotalBytes:(int64_t)expectedTotalBytes
 {
+    
+    AFURLSessionManagerTaskDelegate *delegate = [self delegateForTask:downloadTask];
+    
+    if (delegate) {
+        [delegate URLSession:session downloadTask:downloadTask didResumeAtOffset:fileOffset expectedTotalBytes:expectedTotalBytes];
+    }
+
     if (self.downloadTaskDidResume) {
         self.downloadTaskDidResume(session, downloadTask, fileOffset, expectedTotalBytes);
     }

@@ -1,5 +1,5 @@
 // UIImageView+AFNetworking.m
-// Copyright (c) 2011–2015 Alamofire Software Foundation (http://alamofire.org/)
+// Copyright (c) 2011–2016 Alamofire Software Foundation ( http://alamofire.org/ )
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -48,11 +48,7 @@
 @implementation UIImageView (AFNetworking)
 
 + (AFImageDownloader *)sharedImageDownloader {
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wgnu"
     return objc_getAssociatedObject(self, @selector(sharedImageDownloader)) ?: [AFImageDownloader defaultInstance];
-#pragma clang diagnostic pop
 }
 
 + (void)setSharedImageDownloader:(AFImageDownloader *)imageDownloader {
