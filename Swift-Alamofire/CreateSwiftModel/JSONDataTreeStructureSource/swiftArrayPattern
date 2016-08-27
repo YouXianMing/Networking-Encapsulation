@@ -1,0 +1,16 @@
+        // Array: [PROPERTY-NAME]
+        if key == "[PROPERTY-NAME]" {
+            
+            var modelsArray         = [[PROPERTY-TYPE]]();
+            let array : [AnyObject] = value as! [AnyObject]
+            
+            for value in array {
+                
+                let dictionary = value as! [String : AnyObject]
+                let model      = [PROPERTY-TYPE](dictionary: dictionary)
+                modelsArray.append(model!)
+            }
+            
+            super.setValue(modelsArray, forKey: key)
+            return
+        }

@@ -1,0 +1,9 @@
+        // Dictionary: [PROPERTY-NAME]
+        if key == "[PROPERTY-NAME]" {
+            
+            let dictionary = value as! [String : AnyObject]
+            let model      = [PROPERTY-TYPE](dictionary: dictionary)
+            
+            super.setValue(model, forKey: key)
+            return
+        }
